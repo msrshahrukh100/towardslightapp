@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% block content %}
+<nav style="background-color:#ef5350;">
+  
+  <h4 class="left hide-on-med-and-down logo"><i>Towards Light</i></h4>
+    <h4 class="right hide-on-large-only logosmall"><i>Towards Light</i></h4>
+  
+
+  
+</nav>          
+          
+  
+<div class="container" >
+<div style="padding-top:100px ; padding-bottom:100px">
+<form  method="post" action="/addpost" onsubmit="return false">
+
+
+
+ <div class="row">
+  <div class="row">
+
+    <div class="input-field col s12">
+          <i class="material-icons prefix">queue</i>
+          <input id="icon_prefix" type="text" class="validate" name="title">
+          <label for="icon_prefix">Title of Your Post</label>
+        </div>
+        </div>
+        
+
+
+      <div class="row">
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="icon_prefix2" class="materialize-textarea" name="posts"></textarea>
+          <label for="icon_prefix2">Share Your thoughts here</label>
+        </div>
+      </div>
+    
+  </div>
+<p >Choose the category that best describes you post</p>
+<p>  
+      <input name="typeofpost" type="radio" id="test1" value="Sprituality"/>
+      <label for="test1">Sprituality</label>
+    </p>
+    <p>
+      <input name="typeofpost" type="radio" id="test2" value="Political"/>
+      <label for="test2">Political</label>
+    </p>
+    <p>
+      <input name="typeofpost" type="radio" id="test3" value="Socio-economic"/>
+      <label for="test3">Socio-economic</label>
+    </p>
+    <p>
+      <input name="typeofpost" type="radio" id="test4" value="Life Style"/>
+      <label for="test4">Life Style</label>
+    </p>
+
+
+<p>Choose one of the option depending on whether the post is self written or copied from somewhere</p>
+
+   <p>  
+      <input name="type" type="radio" id="test11" value="Self Written"/>
+      <label for="test11">Self Written</label>
+    </p>
+    <p>
+      <input name="type" type="radio" id="test12" value="~Copied~"/>
+      <label for="test12">~Copied~</label>
+    </p>
+
+    <div style="padding-left:100px" class="transparent">
+      <button id="btnaddpost" class="btn waves-effect waves-light " type="submit" name="action">Add Post
+    <i class="material-icons right">send</i>
+  </button></div> 
+<ul class="messageadded" style="color:blue ; padding-left:70px; font-size:25px"></ul>
+
+
+</form>
+      </div>
+  </div>    
+
+
+
+
+
+      <footer class="page-footer" style="background-color:#ef5350;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Towards Light - Add a post</h5>
+                <p class="grey-text text-lighten-4">Learn. Share. Connect.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                    <ul>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('userhome') }}" class="white-text">
+                      <i class="material-icons">dashboard</i> Back to Dashboard.
+                      <a>
+                    </p>
+                  </li>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('viewupdateprofile') }}" class="white-text">
+                      <i class="material-icons">mode_edit</i> Edit your account info.</a>
+                    </p>
+                  </li>
+                  
+                  
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('meetpeoples') }}" class="white-text">
+                      <i class="material-icons">supervisor_account</i> Look for people you may know.</a>
+                    </p>
+                  </li>
+                  <li>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('meetconnections') }}" class="white-text">
+                      <i class="material-icons">perm_identity</i> Connect with Friends.
+                    </a>
+                    </p>
+                  </li>
+                     <p>
+
+                      <a href="/logout" class="white-text">
+                      <i class="material-icons">power_settings_new</i> Log Out.</a>
+                    </p>
+                  </li>
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright - Towards Light | All Rights reserved
+            <a class="grey-text text-lighten right" href="#!">| Terms of Service</a> 
+            <a class="grey-text text-lighten right" href="#!">Contact Us</a>
+            </div>
+          </div>
+        </footer>
+      
+   {% endblock %}

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<nav>
+  <ul class="right hide-on-med-and-down">
+    <li><a href="/viewsignup">Sign Up</a></li>
+    <li><a href="#!">Second Sidebar Link</a></li>
+  </ul>
+  <h4 class="left hide-on-med-and-down logo"><i>Towards Light</i></h4>
+  <h4 class="right hide-on-large-only logosmall"><i>Towards Light</i></h4>
+  
+  <ul id="slide-out" class="side-nav">
+    <li><a href="/viewsignup">Sign Up</a></li>
+    <li><a href="#!">Second Sidebar Link</a></li>
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+</nav>
+
+
+<div class="container">
+	<h3>Enter your new password here</h3>
+	<blockquote>
+     To reset your password enter the new password here <br> and press the button .Your password will be reset and <br> you will be redirected to the homepage
+    </blockquote>
+
+<br><br>
+
+<form class="col s12 m12" style="padding-bottom:30px" action="{{ url_for('recover_email',token=token) }}" method="post"  >
+
+<div class="row">
+        <div class="input-field col s6 m6">
+          <i class="material-icons prefix">code</i>
+          <input id="password" type="password" class="validate" name="inputPassword" required>
+          <label for="password">Password</label>
+        </div>
+  <div>
+<div class="row">
+<div class="col s6">	
+<button id="btnforgotp" class="btn waves-effect waves-light" type="submit" name="action" style="background-color:#1b5e20 ">Set Password
+    <i class="material-icons right">send</i>
+  </button></div></div>
+  <br><div class="row">
+  <div class="col s6">
+<ul class="messageln" style="padding-left:100px; color:blue;"></ul>
+</div></div>
+	</form>
+
+</div>
+
+
+{% endblock %}

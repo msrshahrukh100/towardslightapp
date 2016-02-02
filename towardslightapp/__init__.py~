@@ -1,0 +1,20 @@
+from flask import Flask
+
+
+app = Flask(__name__)
+app.secret_key = 'why would I tell you my secret key?'
+
+# MySQL configurations
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = '12345'
+app.config['MYSQL_DATABASE_DB'] = 'towardslightdb'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+
+
+app.config['UPLOAD_FOLDER'] = 'static/Uploads'
+
+
+from routes import mysql 
+mysql.init_app(app)
+
+import towardslightapp.routes

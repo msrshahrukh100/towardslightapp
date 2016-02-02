@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <nav>
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+  </nav>
+
+<ul id="friends">
+  <li data-search="shahrukh">shahrukh</li>
+  <li data-search="shadman">shadman</li>
+  <li data-search="amir">amir</li>
+  <li data-search="salik">salik</li>
+  <li data-search="shahid">shahid</li>
+  <li data-search="asjad">asjad</li>
+  <li data-search="nabeel">nabeel</li>
+  <li data-search="alam">alam</li>
+  <li data-search="yusuf">yusuf</li>
+  <li data-search="faiz">faiz</li>
+  <li data-search="saddam">saddam</li>
+</ul>
+  <a class="btn-floating btn-large waves-effect waves-light red" onclick="Materialize.toast('I am a toast', 4000)"><i class="material-icons">dashboard</i></a>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+
+$('#search').keyup(function(){
+
+var current_query = $('#search').val();
+if(current_query !='')
+{
+$('#friends li').hide();
+$('#friends li').each(function(){
+var current_keyword = $(this).attr("data-search");
+
+if(current_keyword.indexOf(current_query) >=0)
+{
+  $(this).show();
+}
+
+
+});
+}
+
+else
+{
+  $('#friends li').show();
+}
+});
+
+
+</script>
+{% endblock %}

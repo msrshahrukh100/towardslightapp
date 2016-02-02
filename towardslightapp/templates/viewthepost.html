@@ -1,0 +1,227 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+
+ 
+<script>
+
+$(function(){
+  $('.parallax').parallax();
+	
+	$posttitle = $('#posttitle');
+	$author = $('#author');
+	$dpost = $('#dpost');
+
+
+$.ajax({
+	url:'/suviewpost/{{ mid }}' ,
+	type:'GET',
+	success: function(data){
+	              var obj = JSON.parse(data);
+	              $.each(obj, function(index,value) {
+	              ///pasted 
+$posttitle.append(value.title);
+$author.append("~By "+value.authorf+" "+value.authorl);
+$dpost.append(value.body);
+
+
+///pasted
+
+	});
+	}
+
+
+});
+
+$.ajax({
+		url:'/getdlike/{{ mid }}',
+		type:'GET',
+		success:function(data)
+		{
+
+			 var obj = JSON.parse(data);
+	              $.each(obj, function(index,value) {
+
+	              	$('#liker').append('<div class="chip"><img src="../static/Uploads/'+value.ppic+'">'+value.userf+' '+value.userl+'</div>');	
+	              });
+
+		}
+	});
+
+$comments = $('#comments');
+
+
+});
+
+</script>
+<script>
+
+
+
+
+
+
+</script>
+
+      <style>
+      textarea {
+      	align : justify;
+      }
+      </style>
+
+ <div class="parallax-container" style="height:300px">
+    <div class="parallax"><img src="../static/images/2.jpg"></div>
+  </div>
+ {% if session.get('user') %}
+<div  style="padding-top:10px;">
+ <a href="/userhome" ><i class="material-icons left">reply</i>Back</a>
+</div>
+{% else %}
+<div  style="padding-top:10px;">
+ <a href="/"><i class="material-icons left">reply</i>Back</a>
+</div>
+{% endif %}
+
+
+  <div class="section white">
+    <div class="row container z-depth-1">
+      <h3 id="posttitle" class="header"></h3>
+      <h5 id="author" class="right-align"></h5>
+
+ 
+      <textarea  class="materialize-textarea" id="dpost" style="padding-top:50px;font-size:20px; font-family: 'Times New Roman'"></textarea>
+
+
+<!--dfsd-->
+
+<!--dfsd-->
+
+
+    </div>
+  </div>
+      
+<div class="container">
+{% if session.get('user') %}
+
+	<a class="btn" onclick="myFunction()"><i class=" material-icons">favorite</i></i>Loved it!</a>
+
+
+<div id="liker" style="padding-top:30px;">
+	People who Loved this<br>
+
+
+ </div>
+<!--comments-->
+<div style="padding-top:20px;">
+<ul class="collection" id="comments">
+      
+</ul>
+</div>
+<!--comments-->
+ 	 <div class="row">
+    <form class="col s12"  action="/addcomment/{{ mid }}" method="post"  onsubmit="return false">
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">textsms</i>
+          <input id="icon_prefix" type="text" class="validate" name="comment">
+          <label for="icon_prefix">Add a comment</label>
+        </div>
+        <div class="input-field col s6">
+          <button id="addcomment"  class="btn waves-effect waves-light" type="submit" name="action" style="background-color:#1b5e20 ">Comment
+    <i class="material-icons right">send</i>
+  </button>
+        </div>
+        
+      </div>
+    </form>
+  </div>
+  {% else %}
+  <h5><a href="/">Sign Up </a>to like and comment on posts!!</h5>
+     {% endif %}   
+
+</div>
+
+  
+<script>
+$comments = $('#comments');
+$.ajax({
+		url:'/getdcomments/{{ mid }}',
+		type:'GET',
+		success:function(data)
+		{
+
+			 var obj = JSON.parse(data);
+	              $.each(obj, function(index,value) {
+
+	              	$comments.append('<li class="collection-item"><div class="chip"><img src="../static/Uploads/'+value.ppic+'">'+value.userf+'</div>: '+value.comment);
+
+
+
+	              });
+
+		}
+	});
+
+
+
+
+
+$('#addcomment').click(function(){
+            
+
+        $.ajax({
+            url: '/addcomment/{{ mid }}',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(data){
+            	$('#icon_prefix').val("");
+          $comments.append('<li class="collection-item"><div class="chip"><img src="../static/Uploads/'+data.pic+'">'+data.name+'</div>: '+data.msg);
+
+                          }
+        });
+    });
+
+
+
+function myFunction() {
+
+	$.ajax({
+		url:'/like/{{ mid }}',
+		type:'GET',
+		success:function(data)
+		{
+
+			if(data.msg == 'Loved It!')
+			{
+			$('#liker').append('<div class="chip"><img src="../static/Uploads/'+data.ppic+'">'+data.fname+' '+data.lname+'</div>');	
+			}
+			Materialize.toast(data.msg, 4000);		
+		}
+
+	});
+
+}
+
+
+</script>
+
+
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>
+		
+
+<script type="text/javascript" src="../static/js/jquery.autosize.js"></script>
+
+<script>
+			$(function(){
+				$('.normal').autosize();
+				$('.animated').autosize();
+			});
+		</script>
+
+
+{% endblock %}

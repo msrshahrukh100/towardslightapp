@@ -1,0 +1,278 @@
+from towardslightapp import app
+from flask import render_template,json,request,redirect,session,url_for ,jsonify,flash
+from flask.ext.mysql import MySQL
+from werkzeug import generate_password_hash, check_password_hash
+from werkzeug.wsgi import LimitedStream
+import uuid
+import os
+
+mysql = MySQL()
+
+
+'''
+UPLOAD_FOLDER="/home/oldbooks/mysite/static/uploads/"
+UPLOADT_FOLDER="/home/oldbooks/mysite/static/uploadst/" 
+ALLOWED_EXTENSIONS=set(['png','jpg','jpeg','gif','tif','pdf'])
+'''
+@app.route('/',methods=['GET'])
+def home():
+    return render_template("homepage.html")
+
+
+
+
+
+@app.route('/fsignup',methods=['POST','GET'])
+def frontsignup():
+    try:
+        _name = request.form['sname']
+        _email = request.form['semail']
+        _password = request.form['spassword']
+        _cpassword = request.form['scpassword']
+        con = mysql.connect()
+        cursor = con.cursor()
+        cursor.callproc('cavail',(_email,))
+        data = cursor.fetchall()
+        x=int(data[0][0])
+           
+        if x==0 :
+            if _password == _cpassword:
+                
+                return jsonify(success='Done successfully') 
+            else :
+                
+                return jsonify(perror='Passwords dont match!')
+        else :
+            
+            return jsonify(ierror='Sorry this mail id has already been taken!')
+
+
+    except Exception as e:
+        return render_template('error.html',error = str(e))
+       
+
+
+
+
+
+
+
+
+@app.route('/test',methods=['GET','POST'])
+def test():
+    return render_template("test.html")
+        
+    
+
+
+@app.route('/comments')
+def comment():
+    return render_template('comment.html')
+
+@app.route('/getcomments',methods=['GET', 'POST'])
+def getuc():
+    try:
+        if session.get('user'):
+            if request.method == 'POST':
+                _comment = request.form['comm']
+                _user = session.get('user')
+                # connect to mysql
+                data={'comm' : _comment}
+                con = mysql.connect()
+                cursor = con.cursor()
+                cursor.callproc('addcomm',(_comment))
+                data = cursor.fetchall()
+                if len(data) is 0:
+                    con.commit()
+                    return json.dumps(data)
+                else:
+                    return render_template('error.html',error = 'Wrong Email add or Password.')
+
+ 
+            con = mysql.connect()
+            cursor = con.cursor()
+            cursor.callproc('getcomments',())
+            complaints = cursor.fetchall()
+            comp_dict=[]
+            for complaint in complaints:
+                i_dict = {
+                'id' : complaint[0],
+                'comm' : complaint[1]
+                }
+                comp_dict.append(i_dict)
+            return json.dumps(comp_dict)
+        else:
+            return render_template('error.html', error = 'Unauthorized Access')
+    except Exception as e:
+        return render_template('error.html', error = str(e))
+
+@app.route('/viewaddpost')
+def viewaddpost():
+	return render_template('addpost.html')
+
+
+
+@app.route('/viewsignup')
+def viewsignup():
+	return render_template('signup.html')
+
+
+@app.route('/userhome')
+def userhome():
+    if session.get('user'):
+        return render_template('userhome.html')
+    else:
+        return render_template('error.html',error = 'Unauthorized Access')
+
+
+@app.route('/signUp',methods=['POST','GET'])
+def signUp():
+    try:
+        _fname = request.form['first_name']
+        _lname = request.form['last_name']
+        _email = request.form['email']
+        _pword = request.form['password']
+        if request.form.get('filePath') is None:
+            _filePath = ''
+        else:
+            _filePath = request.form.get('filePath')
+
+        
+
+        # validate the received values
+        if _fname and _lname and _email and _pword:
+            
+            # All Good, let's call MySQL
+            
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            _hashed_password = generate_password_hash(_pword)
+            cursor.callproc('signup',(_fname,_lname,_email,_hashed_password,_filePath  ))
+            data = cursor.fetchall()
+            #return json.dumps({"Message":x})
+            if len(data) is 0:
+                conn.commit()
+                return json.dumps({'message':'User created successfully !!'})
+            else:
+                return json.dumps({'error':str(data[0])})
+        else:
+            return json.dumps({'html':'<span>Enter the required fields</span>'})
+
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+    finally:
+        cursor.close() 
+        conn.close()
+
+
+
+@app.route('/addpost',methods=['POST','GET'])
+def addpost():
+    try:
+        _title = request.form['title']
+        _post = request.form['posts']
+        _type = request.form['type']
+    
+        # validate the received values
+        if _title and _post and _type:
+            
+            # All Good, let's call MySQL
+            
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('addpost',(_title,_post,_type))
+            data = cursor.fetchall()
+            if len(data) is 0:
+                conn.commit()
+                return json.dumps({'message':'Post Added successfully'})
+            else:
+                return json.dumps({'error':str(data[0])})
+        else:
+            return json.dumps({'html':'<span>Enter the required fields</span>'})
+
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+    finally:
+        cursor.close() 
+        conn.close()
+
+
+#
+@app.route('/validateLogin',methods=['POST','GET'])
+def validateLogin():
+    try:
+        _username = request.form['inputEmail']
+        _password = request.form['inputPassword']
+        
+        
+        # connect to mysql
+
+        con = mysql.connect()
+        cursor = con.cursor()
+        cursor.callproc('validateLogin',(_username,))
+        data = cursor.fetchall() 
+        if len(data) > 0:
+            if check_password_hash(str(data[0][4]),_password):
+                session['user'] = data[0][0]
+                return redirect('userhome')
+            else:
+                return jsonify(msg='Oops! Try again, invalid credentials')
+        else:
+            return jsonify(msg='Oops! Try again, invalid credentials')
+            
+
+    except Exception as e:
+        return render_template('error.html',error = str(e))
+    finally:
+        cursor.close()
+        con.close()
+
+@app.route('/validateLoginmob',methods=['POST','GET'])
+def validateLoginmob():
+    try:
+        _username = request.form['inputEmailmob']
+        _password = request.form['inputPasswordmob']
+        
+        
+        # connect to mysql
+
+        con = mysql.connect()
+        cursor = con.cursor()
+        cursor.callproc('validateLogin',(_username,))
+        data = cursor.fetchall() 
+        if len(data) > 0:
+            if check_password_hash(str(data[0][4]),_password):
+                session['user'] = data[0][0]
+                return redirect('userhome')
+            else:
+                return jsonify(msg='Oops! Try again, invalid credentials')
+        else:
+            return jsonify(msg='Oops! Try again, invalid credentials')
+            
+
+    except Exception as e:
+        return render_template('error.html',error = str(e))
+    finally:
+        cursor.close()
+        con.close()
+
+
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+    	file = request.files['file']
+        extension = os.path.splitext(file.filename)[1]
+    	f_name = str(uuid.uuid4()) + extension
+    	file.save(os.path.join(app.config['UPLOAD_FOLDER'], f_name))
+        return json.dumps({'filename':f_name})
+
+@app.route('/logout')
+def logout():
+    session.pop('user',None)
+    return redirect('/')
+
+
+
+

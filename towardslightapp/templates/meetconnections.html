@@ -1,0 +1,191 @@
+{% extends 'layout.html' %}
+{% block content %}
+<nav style="background-color:#ef5350;">
+
+  
+  <h4 class="left hide-on-med-and-down logo"><i>Towards Light</i></h4>
+  <h4 class="right hide-on-large-only logosmall"><i>Towards Light</i></h4>
+   <ul class="right hide-on-med-and-down">
+        <li>
+
+        	<form>
+               <div class="input-field ">
+          <input class="search" type="search" placeholder="Find your friends" required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+        
+      </form>
+  
+
+        </li>
+        
+      </ul>
+
+      <ul class="left hide-on-large-only">
+        <li>
+
+        	<form>
+        		
+        <div class="input-field col">
+          <input class="searchmob" placeholder="Find your friends" type="search" required>
+          <label for="searchmob"><i class="material-icons" style="color:black;">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+        
+      </form>
+  
+
+        </li>
+        
+      </ul>
+  
+</nav> 
+<div  style="padding-top:10px;">
+ <a href="/userhome" ><i class="material-icons left">reply</i>Back</a>
+</div>
+<div class="container">
+<h5 class="center">Your Connections on Towards Light</h5>
+</div>
+
+
+<div class="row"  id="peoples">
+
+
+
+
+</div>
+
+<p class="center">*Friends in your connections will be able to message you and you will be able to see the Tazkira posted by them</p>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+$peoples = $('#peoples');
+
+
+function addfriend(userid){
+
+  $.ajax({
+    url:'/addfriend/'+userid,
+    type:'GET',
+    success: function(data)
+    {
+      
+        Materialize.toast(data.msg, 4000)
+    }
+
+  });
+
+
+
+}
+
+
+
+
+$.ajax({
+url:'/getallfriends',
+type:'GET',
+success: function(data){
+
+
+var obj = JSON.parse(data);
+      
+$.each(obj, function(index, value) {
+
+
+//pasted
+
+if(value.type)
+{$peoples.append('<div style="height:200px;" data-search="'+value.userf+' '+value.institution+'" class="outer col s12 m4 l4 "><div class="card-panel grey lighten-5 z-depth-1 "><div class="row valign-wrapper"><div class="col s5"><img style="max-height:121px;max-width:121px;" src="../static/Uploads/'+value.ppic+'" alt="" class=" responsive-img"></div><div class="col s10"><span class="black-text" style="padding-left:20px;"><a href="/viewperson/'+value.userid+'">'+value.userf+' '+value.userl+'</a></span><br><span class="black-text" style="padding-left:20px;">'+value.type+'</span> at<br><span class="black-text" style="padding-left:20px;">'+value.institution+'</span><p></p></div></div></div></div>');
+}
+
+else
+{
+	$peoples.append('<div style="height:200px;" data-search="'+value.userf+' '+value.institution+'" class="outer col s12 m4 l4 "><div class="card-panel grey lighten-5 z-depth-1 "><div class="row valign-wrapper"><div class="col s5"><img style="max-height:121px;max-width:121px;" src="../static/Uploads/'+value.ppic+'" alt="" class=" responsive-img"></div><div class="col s10"><span class="black-text" style="padding-left:20px;"><a href="/viewperson/'+value.userid+'">'+value.userf+' '+value.userl+'</a></span><p></p></div></div></div></div>');	
+}
+//pasted
+
+
+
+});
+
+
+}
+
+});
+
+
+
+$('.search').keyup(function(){
+
+var current_query = $('.search').val();
+
+
+if(current_query !='')
+{
+$('#peoples .outer').hide();
+$('#peoples .outer').each(function(){
+var current_keyword = $(this).attr("data-search");
+//console.log(current_keyword);
+var x = current_query.toLowerCase();
+var y = current_keyword.toLowerCase();
+if(y.indexOf(x) >=0)
+{
+  
+//
+  $(this).show();
+}
+//
+//
+});
+}
+//
+else
+{
+  $('#peoples .outer').show();
+}
+});
+   
+
+   ///for the mobile peoples
+
+
+
+   $('.searchmob').keyup(function(){
+
+var current_query = $('.searchmob').val();
+
+
+if(current_query !='')
+{
+$('#peoples .outer').hide();
+$('#peoples .outer').each(function(){
+var current_keyword = $(this).attr("data-search");
+//console.log(current_keyword);
+var x = current_query.toLowerCase();
+var y = current_keyword.toLowerCase();
+
+if(y.indexOf(x) >=0)
+{
+ 
+//
+  $(this).show();
+}
+//
+//
+});
+}
+//
+else
+{
+  $('#peoples .outer').show();
+}
+});
+
+
+
+
+</script>
+
+
+{% endblock %}

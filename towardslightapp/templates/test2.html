@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="fixed-action-btn " style="bottom: 150px; right: 50px;">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">view_quilt</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating yellow darken-1 btn modal-trigger" href="#modal1" title="Edit your profile picture"><i class="material-icons">perm_contact_calendar</i></a></li>
+      
+    </ul>
+  </div>
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Update Your Profile Pic</h4>
+     <!-- form -->
+
+     <form class="col s3 m4" id="upload" style="padding-bottom:30px" action="/upload2" method="post" enctype="multipart/form-data" onsubmit="return false">
+       <div class="file-field input-field">
+      <div class="btn">
+        <i class="material-icons left">perm_media</i>
+        <span>Photo</span>
+        <input type="file" id="file" name="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text"  placeholder="Upload your pic.A smiling one would be better">
+      </div>
+    </div>
+      <div style="padding-left:30px; padding-bottom:50px;" class="transparent">
+      <button id="uploadpic" class="btn waves-effect waves-light" type="submit" name="action2">Upload
+    <i class="material-icons right">send</i>
+  </button></div>         
+  </form> 
+
+
+  <img class="materialboxed profilepic hide-on-med-and-down" width="650"style="max-height:500px" id="imgUpload" src="">
+
+
+    </div>
+    <div class="modal-footer">
+      <a href="/test" class=" modal-action modal-close waves-effect waves-green btn-flat">Done</a>
+    </div>
+  </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+
+$(function(){
+			    $('#file').fileupload({
+        			url: 'upload2',
+        			dataType: 'json',
+        			add: function (e, data) {
+        				data.submit();
+        			},
+			        success:function(response,status) {
+					console.log(response.filename);
+					var filePath = 'static/Uploads/' + response.filename;
+					$('.profilepic').attr('src',filePath);
+					$('.file-path').val(filePath);
+			        	console.log('success');
+			        },
+			        error:function(error){
+			        	console.log(error);
+			        }
+    			});
+		})
+</script>
+
+
+
+
+
+{% endblock %}

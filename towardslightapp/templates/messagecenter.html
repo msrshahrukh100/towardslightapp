@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<script>
+$(function(){
+
+
+
+  $('.parallax').parallax();
+
+
+$.ajax({
+	url:'/seenmessages',
+	type:'GET',
+	success:function(data){
+		console.log(data);
+	}
+
+
+
+});
+
+
+
+
+
+
+});
+
+</script>
+<div class="parallax-container" style="height:250px">
+    <div class="parallax"><img src="../static/images/4.jpg"></div>
+  </div>
+ 
+<div  style="padding-top:10px;">
+ <a href="/userhome" ><i class="material-icons left">reply</i>Back</a>
+</div>
+
+
+<div class="container">
+<h4>Welcome to Towards Light Message Center</h4>
+ <ul class="collapsible" data-collapsible="accordion" id="yourmessages">
+    
+  </ul>
+<p>*To respond you need to vist the person's profile and then type your message and send.If you cannot see any text area to type the message it means the person has'nt yet added you to his/her connections.</p>
+<p>*On Towards Light you can view messages which are upto 4 days old</p>        
+</div>
+
+<script>
+
+$.ajax({
+	url: '/getmymessages',
+	type: 'GET',
+	success: function(data){
+	
+
+
+		var obj = JSON.parse(data);
+
+		$.each(obj,function(index,value){
+			
+
+			$('#yourmessages').append('<li><div class="collapsible-header"><i class="material-icons">redeem</i>A message from  <div class="chip"><img src="../static/Uploads/'+value.ppic+'">'+value.userf+' '+value.userl+'</div></div><div class="collapsible-body"><p>'+value.message+'</p></div></li>')
+
+
+		});
+	}
+
+
+});
+
+
+
+</script>
+
+
+{% endblock %}

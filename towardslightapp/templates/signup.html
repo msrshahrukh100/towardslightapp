@@ -1,0 +1,263 @@
+{% extends "layout.html" %}
+{% block content %}
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+<script>
+
+$(function(){    
+    
+    var $messageln=$('.messageln');
+            
+
+        $.ajax({
+            url: '/getallinfo',
+            type: 'GET',
+            success: function(data){
+             $('#first_name').val(data.fname);
+             $('#last_name').val(data.lname);
+             $('#date').val(data.dob);
+             $('#type').val(data.atype);
+             $('#institute').val(data.institute);
+             $('#aoi').val(data.areaoint);
+             $('#hobby').val(data.hobby);
+             $('#skills').val(data.skills);        
+                          }
+        });
+  
+
+
+$('#btnupdate').click(function(){
+         $messageln.empty();
+        $.ajax({
+            url: '/updateprofile',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(data){
+
+                     $messageln.append('<li>'+data.msg+'</li>');
+                
+                   
+            }
+        });
+    });
+
+
+
+
+
+
+});
+
+
+
+
+
+</script>
+     
+<nav style="background-color:#ef5350;">
+  
+  <h4 class="left hide-on-med-and-down logo"><i>Towards Light</i></h4>
+  <h4 class="right hide-on-large-only logosmall"><i>Towards Light</i></h4>
+   <ul class="right hide-on-med-and-down">
+        
+        
+      </ul>
+
+      
+</nav> 
+  
+
+<div class="container" >
+<h3>Update Profile Information</h3>
+<div class="row"  style="padding-top:80px">
+    <form class="col s12"  action="/updateprofile" method="post"  onsubmit="return false">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first_name"  name="first_name" type="text" class="validate" placeholder="First Name">
+          <label >First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" name="last_name" type="text" class="validate" placeholder="Last Name">
+          <label>Last Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+    
+      <div class="row">
+
+        <div class="input-field col s6">
+          <p style="font-size:13px">Please tell us our date of birth</p>
+          <i class="material-icons prefix">today</i>
+          <input id="date" type="date" class="datepicker"  name="date" >
+          
+        </div>
+        
+      </div>
+    
+  </div>
+        
+               
+
+      <div class="row">
+        <div class="input-field col s6">
+    <select class="validate" id="type" name="type">
+     
+      <option value="Studying">Studying</option>
+      <option value="Working" >Working</option>
+    </select>
+    <label>Choose whether you are studying or working</label>
+  </div>
+      </div>
+
+
+
+      <div class="row">
+    
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">business</i>
+          <input id="institute" name="institute" type="text" class="validate" placeholder="Name of Institution">
+          <label >Name of Institution</label>
+        </div>
+        
+      </div>
+    
+  </div>
+
+
+<div class="row">
+          <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">description</i>
+          <textarea id="aoi" class="materialize-textarea" name="aoi" placeholder="Tell us about your areas of interest"></textarea>
+          <label >Tell us about your areas of interest</label>
+        </div>
+      </div>
+    
+  </div>
+
+<div class="row">
+          <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">perm_camera_mic</i>
+          <textarea id="hobby" class="materialize-textarea" name="hobby" placeholder="Tell us your Hobbies"></textarea>
+          <label >Tell us your Hobbies</label>
+        </div>
+      </div>
+    
+  </div>
+
+<div class="row">
+          <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">grade</i>
+          <textarea id="skills" class="materialize-textarea" name="skills" placeholder="Tell us your about your skills"></textarea>
+          <label >Tell us your about your skills</label>
+        </div>
+      </div>
+    
+  </div>
+
+ <p>
+      <input name="privacy" value="Show" type="radio" id="test1" checked />
+      <label for="test1">I want my email id to be displayed on my profile page</label>
+    </p>
+
+<p>
+      <input name="privacy" value="" type="radio" id="test2" />
+      <label for="test2">I wish to keep my email id private</label>
+    </p>
+
+
+
+    
+ <ul class="messageln" style="color:blue ; padding-left:170px; font-size:25px"></ul>
+<div style=" padding-top:50px">
+      
+         <button id="btnupdate" class="btn waves-effect waves-light" type="submit" name="action" style="background-color:#d32f2f ">Update Profile
+    <i class="material-icons right">send</i>
+  </button></div>
+
+
+
+    </form>
+  </div>
+
+
+
+
+
+
+</div>
+
+
+      
+       <footer class="page-footer" style="background-color:#ef5350;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Towards Light - Dashboard</h5>
+                <p class="grey-text text-lighten-4">Learn. Share. Connect.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                    <ul>
+                      <li>
+                     <p>
+
+                      <a href="{{ url_for('userhome') }}" class="white-text">
+                      <i class="material-icons">dashboard</i> Back to Dashboard.
+                      <a>
+                    </p>
+                  </li>
+
+
+                  
+                  
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('viewaddpost') }}" class="white-text">
+                      <i class="material-icons">list</i> Write a blog and share.
+                      <a>
+                    </p>
+                  </li>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('meetpeoples') }}" class="white-text">
+                      <i class="material-icons">supervisor_account</i> Look for people you may know.</a>
+                    </p>
+                  </li>
+                  <li>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('meetconnections') }}" class="white-text">
+                      <i class="material-icons">perm_identity</i> Connect with Friends.
+                    </a>
+                    </p>
+                  </li>
+                     <p>
+
+                      <a href="/logout" class="white-text">
+                      <i class="material-icons">power_settings_new</i> Log Out.</a>
+                    </p>
+                  </li>
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright - Towards Light | All Rights reserved
+            <a class="grey-text text-lighten right" href="#!">| Terms of Service</a> 
+            <a class="grey-text text-lighten right" href="#!">Contact Us</a>
+            </div>
+          </div>
+        </footer>
+  {% endblock %}

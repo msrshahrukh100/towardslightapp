@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<nav>
+  
+  <h4 class="left hide-on-med-and-down logo"><i>Towards Light</i></h4>
+  <h4 class="right hide-on-large-only logosmall"><i>Towards Light</i></h4>
+   <ul class="right hide-on-med-and-down">
+        
+        
+      </ul>
+
+      
+</nav> 
+
+
+
+<!---->
+
+<div class="row">
+    
+     <form class="col s12 m12" style="padding-bottom:30px" action="/fsignup" method="post" onsubmit="return false" >
+        <div class="row">
+        <div class="input-field col s12">
+          <input id="name55" type="text" class="validate" name="sname" required>
+          <label for="name55">Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email55" type="email" class="validate" name="semail" required>
+          <label for="email55">Email</label>
+        </div><ul class="iderror" style="padding-left:200px ;color:blue"></ul>
+      </div>
+      <!--chips-->
+       <div class="chip">
+    Confirmation mail will be send to this id
+    <i class="material-icons">close</i>
+  </div>
+        
+      <!--chips-->
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="password55" type="password" class="validate" name="spassword" required>
+          <label for="password55">Password</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="confirmpassword" type="password" class="validate" name="scpassword" required>
+          <label for="confirmpassword">Confirm Password</label>
+        </div>
+        <ul class="perror" style="padding-left:200px ;color:blue"></ul>
+      </div>
+
+      <p>
+      <input type="checkbox" id="test5" value="Agree" name="tos" required/>
+      <label for="test5">I agree to the <a href="/tos/">Terms of Service</a></label>
+    </p>
+
+
+<!--preloader##############################################################
+-->
+
+ <div id="preloader" class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<!--preloader###########################################
+-->
+    <ul class="success" style="color:blue"></ul>
+
+      <div style="padding-left:30px; padding-bottom:50px;" class="transparent">
+      <button style="background-color:#3e2723" id="frontSignUp" class="btn waves-effect waves-light " type="submit" name="action2">Sign Up
+    <i class="material-icons right">send</i>
+  </button></div>         
+
+  </form>    
+
+<!--
+
+
+-->
+   
+   <!--
+
+
+-->      
+  </div>    
+
+
+
+<!---->
+{% endblock %}

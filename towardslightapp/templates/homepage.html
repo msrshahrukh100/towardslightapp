@@ -1,0 +1,489 @@
+{% extends "layout.html" %}
+{% block content %}
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<script>
+$(function(){
+
+$('.parallax').parallax();
+});
+
+</script>
+
+<div class="parallax-container hide-on-med-and-down" style="height:300px">
+    <div class="parallax"><img src="../static/images/5.jpg"></div>
+  </div>
+
+<div class="parallax-container hide-on-large-only" style="height:200px">
+    <div class="parallax"><img src="../static/images/6.jpg"></div>
+  </div>
+
+
+      <div style="padding-left:100px;margin-right:-200px;">         
+    <div class="row">
+
+
+<div class="col s5 hide-on-med-and-down" >
+          <div class="card large">
+            <div class="card-image">
+              <img src="../static/images/7.jpg">
+              <span class="card-title "><p style="color:black;font-size:25px;">"Knowledge is my companion, it is with me wherever I go. My heart is its container, not the bookshelf."</p></span>
+            </div>
+            <div class="card-content">
+              <p style="font-size:20px">Learn. Share. Connect.</p>
+              <p>A website dedicated to spreading of knowledge.</p>
+              <p>If you like to share your views and love reading about other's views, if you love to connect with people and discuss out ideas than you are at the right place!</p>
+            </div>
+           
+          </div>
+        </div>
+
+
+      
+      <div class="col l4 s12 " style="padding-top:20px">
+<form class="col s6 m12" style="padding-bottom:30px" action="/validateLogin" method="post"  onsubmit="return false">
+      <div class="row">
+        <div class="input-field col s12 m6">
+           <i class="material-icons prefix">person_pin</i>
+          <input id="email" type="email" class="validate" name="inputEmail" required>
+          <label for="email">Email</label>
+        </div>
+
+        <div class="input-field col s12 m6">
+          <i class="material-icons prefix">code</i>
+          <input id="password" type="password" class="validate" name="inputPassword" required>
+          <label for="password">Password</label>
+        </div>
+      </div>
+   
+      
+      <div class="row">
+        <div class="input-field col s6 m6">
+      <p style="text-align:right ;font-size:13px;"><a href="/forgotpw">Forgot Password?</a><p></div>
+        <div class="input-field col s6 m6">
+     
+
+
+
+      <div style="padding-left:15px">
+      
+         <button  class="btn waves-effect waves-light btnSignIn" type="submit" name="action" style="background-color:#3e2723 ">Sign In
+    <i class="material-icons right">send</i>
+  </button></div></div>
+      </div>
+
+     
+
+
+
+       <ul class="messageln" style="color:blue ; padding-left:170px;"></ul>
+
+    </form>    
+
+
+         <div class="row hide-on-med-and-down">
+{% for message in get_flashed_messages() %}
+
+<p style="color:blue ">{{ message }}</p>
+
+{% endfor %}
+
+
+ <br><br>
+    If you still don't have a account !<br>Sign Up for free here
+    <br>
+    
+<div class="row">
+    
+     <form class="col s12 m12" style="padding-bottom:30px" action="/fsignup" method="post" onsubmit="return false" >
+        <div class="row">
+        <div class="input-field col s12">
+          <input id="name55" type="text" class="validate" name="sname" required>
+          <label for="name55">Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email55" type="email" class="validate" name="semail" required>
+          <label for="email55">Email</label>
+        </div><ul class="iderror" style="padding-left:200px ;color:blue"></ul>
+      </div>
+      <!--chips-->
+       <div class="chip">
+    Confirmation mail will be send to this id
+    <i class="material-icons">close</i>
+  </div>
+        
+      <!--chips-->
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="password55" type="password" class="validate" name="spassword" required>
+          <label for="password55">Password</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="confirmpassword" type="password" class="validate" name="scpassword" required>
+          <label for="confirmpassword">Confirm Password</label>
+        </div>
+        <ul class="perror" style="padding-left:200px ;color:blue"></ul>
+      </div>
+
+      <p>
+      <input type="checkbox" id="test5" value="Agree" name="tos" required/>
+      <label for="test5">I agree to the <a href="/tos/">Terms of Service</a></label>
+    </p>
+
+
+<!--preloader##############################################################
+-->
+
+ <div id="preloader" class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<!--preloader###########################################
+-->
+    <ul class="success" style="color:blue"></ul>
+
+      <div style="padding-left:30px; padding-bottom:50px;" class="transparent">
+      <button style="background-color:#3e2723" id="frontSignUp" class="btn waves-effect waves-light " type="submit" name="action2">Sign Up
+    <i class="material-icons right">send</i>
+  </button></div>         
+
+  </form>    
+
+<!--
+
+
+-->
+   
+   <!--
+
+
+-->      
+  </div>    
+
+    
+
+
+
+     </div>
+
+
+         </div>
+
+      </div>
+</div>
+
+      <!-- for the mobile view -->
+<div class="col s6 hide-on-large-only" style="padding-top:20px">
+
+   <div class="row">
+        <div class="col s12 m7">
+          <div class="card">
+            <div class="card-image">
+              <img src="../static/images/7.jpg">
+              <span class="card-title"><p style="color:black; font-size:15px;">"Knowledge is my companion, it is with me wherever I go. My heart is its container, not the bookshelf."</p></span>
+            </div>
+            <div class="card-content">
+              <p style="font-size:20px">Learn. Share. Connect.</p>
+              <p>A website dedicated to spreading of knowledge.</p>
+              <p>If you like to share your views and love reading about other's views, if you love to connect with people and discuss out ideas than you are at the right place!</p>
+            </div>
+            </div>
+        </div>
+      </div>
+  <form class="col s12 m12" style="padding-bottom:30px" action="/validateLogin" method="post" onsubmit="return false">
+      <div class="row">
+        <div class="input-field col s6 m6">
+           <i class="material-icons prefix">person_pin</i>
+          <input id="email1" type="email" class="validate" name="inputEmail">
+          <label for="email1">Email</label>
+        </div>
+        <div class="input-field col s6 m6">
+          <i class="material-icons prefix">code</i>
+          <input id="password1" type="password" class="validate" name="inputPassword">
+          <label for="password1">Password</label>
+        </div>
+      </div>
+      <div >
+      
+         <button class="btn waves-effect waves-light btnSignIn" type="submit" name="action" style="background-color:#3e2723 ">Sign In
+    <i class="material-icons right">send</i>
+  </button>
+      </div>
+       <ul class="messageln" style="color:blue ;"></ul>
+
+    </form>
+<a href="/mobilesignup">Create a new account</a>
+
+</div>
+
+
+   
+          
+
+          <div class="container">
+        <!-- Page Content goes here for the postsssss -->
+        <h5>Here are the recent posts on Towards Light</h5> 
+
+<ul class="collection" id="postbyyou">
+
+ <!--preloader##############################################################
+-->
+ <div class="center-align">
+
+ <div id="preloader1" class="preloader-wrapper big active center">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+<!--preloader###########################################
+-->
+
+
+
+
+   </ul>
+       
+        <ul class="pagination" id="pagination">
+ 
+
+
+
+  </ul>
+
+      </div>
+
+      
+
+       <footer class="page-footer" style="background-color:#5d4037;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Towards Light</h5>
+                <p class="grey-text text-lighten-4">Learn. Share. Connect.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                    <ul>
+                  <li>
+                     <p class="grey-text text-lighten-4">
+
+
+                      <i class="material-icons">description</i>Write a blog and share.
+                    </p>
+                  </li>
+                  <li>
+                     <p class="grey-text text-lighten-4">
+
+
+                      <i class="material-icons">supervisor_account</i>Connect with Friends.
+                    </p>
+                  </li>
+                  <li>
+                     <p class="grey-text text-lighten-4">
+
+
+                      <i class="material-icons">search</i>Look for people you may know.
+                    </p>
+                  </li>
+                  <li>
+                     <p class="grey-text text-lighten-4">
+
+
+                      <i class="material-icons">chat</i>Leave a message for your friends.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright - Towards Light | All Rights reserved
+            <a class="grey-text text-lighten right" href="#!">| Terms of Service</a> 
+            <a class="grey-text text-lighten right" href="#!">Contact Us</a>
+            </div>
+          </div>
+        </footer>
+
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<script>
+  $("#preloader1").hide();
+
+        var $post = $('#postbyyou');
+
+  $pagination = $('#pagination');
+
+var pages;
+
+
+$.ajax({
+url : '/findpageno',
+type : 'GET',
+success : function(data){
+  var i;
+    for(i=1;i<=data.msg;i++)
+    {
+      $pagination.append('<li id="'+i+'" class="waves-effect"><a onclick="myfunction('+i+')">'+i+'</a></li>');
+    }
+    pages = data.msg
+
+}
+
+});
+
+myfunction(1);
+    
+function myfunction(pno){
+                $post.empty();
+     $("#preloader1").show();
+
+
+  $.ajax({
+    url : '/pagination/'+pno,
+    type : 'GET',
+    success : function(data){
+//the copied
+var i;
+$("#preloader1").fadeOut(300).hide();
+
+for (i=1;i<=pages;i++)
+
+  {
+    if ($('#'+i).hasClass('active')) 
+    {
+    $('#'+i).removeClass('active');}
+  }
+
+$('#'+pno).addClass('active');
+
+
+
+var obj = JSON.parse(data);
+      
+
+$.each(obj, function(index, value) {
+
+if(value.posttype === 'Sprituality'){
+  $post.append('<li class="collection-item avatar"><i class="material-icons circle green ">grade</i><span class="title"><h5>'+value.mtitle+'</h5></span><p>'+value.posttype+'<br>Published on '+value.date+'<br>~By '+value.userf+' '+value.userl+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+if(value.posttype === "Political"){
+  $post.append('<li class="collection-item avatar"><i class="material-icons circle pink">language</i><span class="title"><h5>'+value.mtitle+'</h5></span><p>'+value.posttype+'<br>Published on '+value.date+'<br>~By '+value.userf+' '+value.userl+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+if(value.posttype === "Socio-economic"){
+  $post.append('<li class="collection-item avatar"><i class="material-icons circle red">person_pin</i><span class="title"><h5>'+value.mtitle+'</h5></span><p>'+value.posttype+'<br>Published on '+value.date+'<br>~By '+value.userf+' '+value.userl+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+if(value.posttype === "Life Style"){
+  $post.append('<li class="collection-item avatar"><i class="material-icons circle blue">loyalty</i><span class="title"><h5>'+value.mtitle+'</h5></span><p>'+value.posttype+'<br>Published on '+value.date+'<br>~By '+value.userf+' '+value.userl+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+        
+   });
+
+
+//the copied
+
+
+
+    }
+
+  });
+}
+
+
+
+
+
+</script>
+{% endblock %}

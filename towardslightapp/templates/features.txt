@@ -1,0 +1,8 @@
+like
+comment
+status update
+category of post and sort and display
+login error wthout reloding
+e mail confirmation
+add reminder which is displayed on everyone 
+chat rooms call it differently discussion point

@@ -1,0 +1,259 @@
+{% extends "layout.html" %}
+{% block content %}
+
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+
+$(function(){
+  $('.parallax').parallax();
+	
+//pasted content
+    
+    var $vusername=$('.vusername');
+        var $vuseremail=$('.vuseremail');
+		 var $vworkinfo = $('.vworkinfo');
+			 var $vareaofinterest = $('.vareaofinterest');
+		 var $vhobbies = $('.vhobbies');
+		 var $vskills = $('.vskills');
+        var $vpost = $('#vpostbyyou');
+
+        $.ajax({
+            url: '/viewpersoninfo/{{ pid }}',
+            type: 'GET',
+            success: function(data){
+              $('.vprofilepic').attr('src','../static/Uploads/'+data.ppic); 
+              
+              if(data.lname){
+              $vusername.append(data.fname +' '+data.lname);
+                  }
+                  else
+                    {$vusername.append(data.fname );}
+                  if(data.privacy){
+              $vuseremail.append(' <i class=" material-icons left">email</i>'+data.email);
+               }
+              if(data.atype)
+              {
+              	if(data.institute)
+              	{
+              		$vworkinfo.append(" <i class='material-icons left'>class</i>"
++data.atype+" at "+data.institute);  
+
+              	}
+              }
+
+              if(data.areaoint)
+              	{$vareaofinterest.append(" <i class='material-icons left'>subtitles</i>My areas of interest are "+data.areaoint);}
+              if(data.hobby)
+              	{$vhobbies.append(" <i class='material-icons left'>perm_camera_mic</i> My hobbies are "+data.hobby);}
+
+				if(data.skills)
+              	{$vskills.append(" <i class='material-icons left'>stars</i>My Skills are "+data.skills);}
+                          }
+        });
+  
+
+
+
+
+
+////////////////////////////////////////////////for the posts
+
+        $.ajax({
+            url: '/viewuserposts/{{ pid }}',
+            type: 'GET',
+            success: function(data){
+              var obj = JSON.parse(data);
+
+$.each(obj, function(index, value) {
+
+if(value.posttype === 'Sprituality'){
+  $vpost.append('<li class="collection-item avatar"><i class="material-icons circle green ">grade</i><span class="title">'+value.mtitle+'</span><p>'+value.posttype+'<br>Published on '+value.date+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+if(value.posttype === "Political"){
+  $vpost.append('<li class="collection-item avatar"><i class="material-icons circle pink">language</i><span class="title">'+value.mtitle+'</span><p>'+value.posttype+'<br>Published on '+value.date+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+if(value.posttype === "Socio-economic"){
+  $vpost.append('<li class="collection-item avatar"><i class="material-icons circle red">person_pin</i><span class="title">'+value.mtitle+'</span><p>'+value.posttype+'<br>Published on '+value.date+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+if(value.posttype === "Life Style"){
+  $vpost.append('<li class="collection-item avatar"><i class="material-icons circle blue">loyalty</i><span class="title">'+value.mtitle+'</span><p>'+value.posttype+'<br>Published on '+value.date+'</p><a href="/showpost/'+value.mid+'" class="secondary-content"><i class="material-icons">library_books</i></a></li>');
+       }
+
+
+        
+   });
+
+                          }
+        });
+  
+
+
+
+
+
+
+
+
+//pasted content
+
+
+	$.ajax({
+    url:'/checkfriendship/{{ pid }}',
+    type: 'GET',
+    success: function(data){
+      if (data.status )
+      {
+        $('#dropmessagearea').show();
+      }
+      else
+      {
+        $('#dropmessagearea').hide();
+
+      }
+    }
+
+  });
+
+
+
+
+
+
+});
+
+</script>
+<script>
+function deletefunction(pid){
+  $.ajax({
+
+    url:'/deleteconnection/'+pid,
+    type:'GET',
+    success:function(data){
+          Materialize.toast(data.msg, 4000)
+
+    }
+  });
+}
+
+function dropmessage(pid){
+  $.ajax({
+  url: '/dropmessage/'+pid,
+  type: 'POST',
+  data: $('form').serialize(),
+  success:function(data){
+
+    $('#dropmessage').val("");
+    Materialize.toast(data.msg, 4000)
+  }
+
+});
+
+}
+
+
+
+function goback(){ window.history.back();}
+
+</script>
+
+        
+ <div class="parallax-container" style="height:200px">
+    <div class="parallax"><img src="../static/images/3.jpg"></div>
+  </div>
+  
+
+<div  style="padding-top:10px;">
+ <a onclick="goback()" ><i class="material-icons left">reply</i>Back</a>
+</div>
+
+<!--copied content!!-->
+ <div class="container ">
+  <div class="right">
+    <a title="Disconnect with this person"class="btn-floating btn-large waves-effect waves-light red" onclick="deletefunction({{ pid }})"><i class="material-icons">mic_off</i></a>
+
+
+
+  </div>
+
+
+  <div class="card "  style="max-height:1000px; max-width:500px">
+    <div class="card-image waves-effect waves-block waves-light" style="max-height:800px; max-width:500px">
+      
+
+      <img  class="activator vprofilepic" src="" style="max-height:100%;width:100%">
+
+    </div>
+
+
+
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4 vusername" style="font-style:italic;font-size:34px"><i class="material-icons right">more_vert</i></span><p>Click to know more</p>
+      
+    </div>
+
+
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4 vusername center"  style="font-style:italic;font-size:45px"><i class="material-icons right">close</i></span>
+      <p style="font-size:20px;">
+
+ <span class="vuseremail"></span></p>
+
+<p class="vworkinfo" style="font-size:20px;"></p>
+<p class="vareaofinterest" style="font-size:20px;"></p>
+<p class="vhobbies" style="font-size:20px;"></p>
+<p class="vskills" style="font-size:20px;"></p>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+          <div id="dropmessagearea">
+<div class="row">
+    <form class="col s12" action='/dropmessage/{{ pid }}' method ='post'>
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="dropmessage" class="materialize-textarea" name="dropmessage"></textarea>
+          <label for="dropmessage">Drop a message for this person</label>
+        </div>
+        
+      </div>
+       <a class="btn-floating btn-large waves-effect waves-light red" onclick="dropmessage({{ pid }})"><i class="material-icons">add</i></a>
+     
+    </form>
+  </div>
+
+      
+    </div>
+<div class="container">
+
+
+
+<h5 style="margin-left:30px;">Posts : </h5>
+
+
+<ul class="collection" id="vpostbyyou">
+ 
+    
+
+    
+  </ul>
+    
+</div>
+<!--copied content-->
+  
+ 
+
+
+{% endblock %}

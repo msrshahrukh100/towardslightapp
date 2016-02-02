@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<nav style="background-color:#ef5350;">
+  
+  <h4 class="left hide-on-med-and-down logo"><i>Towards Light</i></h4>
+  <h4 class="right hide-on-large-only logosmall"><i>Towards Light</i></h4>
+  
+  
+</nav>
+
+
+<div class="container">
+	<h3>Get confirmation link again</h3>
+	<blockquote>
+      To get you confirmation link on your email enter your e-mail id here and press send.
+      <br>You will receive a email having your confirmation link.
+    </blockquote>
+
+<br><br>
+
+<form class="col s12 m12" style="padding-bottom:30px" action="/getconfirmationcode" method="post"  onsubmit="return false">
+
+<div class="row">
+        <div class="input-field col s6 m6">
+           <i class="material-icons prefix">person_pin</i>
+          <input id="email12" type="email" class="validate" name="inputEmail" required>
+          <label for="email12">Email</label>
+        </div>
+  <div>
+<div class="row">
+<div class="col s6">	
+<button id="getconfirmationcode" class="btn waves-effect waves-light" type="submit" name="action" style="background-color:#1b5e20 ">Get Confirmation Link
+    <i class="material-icons right">send</i>
+  </button></div></div>
+  <br><div class="row">
+  <div class="col s6">
+<ul class="messageln" style="padding-left:100px; color:blue;"></ul>
+</div></div>
+	</form>
+
+</div>
+
+
+<!--preloader##############################################################
+-->
+<div class="center-align">
+ <div id="preloader4" class=" preloader-wrapper big active " >
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+</div>
+<!--preloader###########################################
+-->
+
+
+
+{% endblock %}

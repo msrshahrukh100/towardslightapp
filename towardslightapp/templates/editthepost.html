@@ -1,0 +1,241 @@
+{% extends "layout.html" %}
+{% block content %}
+
+ 
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<script>
+
+$.ajax({
+	url: '/vieweditpage/{{ postid }}',
+	type:'GET',
+	success:function(data){
+		//console.log(data);
+			$('#uicon_prefix').val(data.ptitle);
+			$('#uicon_prefix2').val(data.post);
+	}
+
+
+});
+
+
+
+
+</script>
+
+<nav>
+  <ul class="right hide-on-med-and-down">
+    <li><a href="#!">First Sidebar Link</a></li>
+    <li><a href="#!">Second Sidebar Link</a></li>
+  </ul>
+  <h4 class="left hide-on-med-and-down logo"><i>Towards Light</i></h4>
+  <h4 class="right hide-on-large-only logosmall"><i>Towards Light</i></h4>
+  
+  <ul id="slide-out" class="side-nav">
+    <li><a href="#!">First Sidebar Link</a></li>
+    <li><a href="#!">Second Sidebar Link</a></li>
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+</nav>
+          
+
+  
+<div class="container" >
+<div style="padding-top:100px ; padding-bottom:100px">
+<form  method="post" action="/vieweditpage/{{ postid }}" onsubmit="return false">
+
+
+
+ <div class="row">
+  <div class="row">
+
+    <div class="input-field col s12">
+          <i class="material-icons prefix">queue</i>
+          <input id="uicon_prefix" type="text" class="validate" name="utitle">
+          <label for="icon_prefix">Title of Your Post</label>
+        </div>
+        </div>
+        
+
+
+      <div class="row">
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="uicon_prefix2" class="materialize-textarea" name="uposts"></textarea>
+          <label for="icon_prefix2">Share Your thoughts here</label>
+        </div>
+      </div>
+    
+  </div>
+<p >Choose the category that best describes you post</p>
+<p>  
+      <input name="typeofpost" type="radio" id="utest1" value="Sprituality"/>
+      <label for="utest1">Sprituality</label>
+    </p>
+    <p>
+      <input name="typeofpost" type="radio" id="utest2" value="Political"/>
+      <label for="utest2">Political</label>
+    </p>
+    <p>
+      <input name="typeofpost" type="radio" id="utest3" value="Socio-economic"/>
+      <label for="utest3">Socio-economic</label>
+    </p>
+    <p>
+      <input name="typeofpost" type="radio" id="utest4" value="Life Style"/>
+      <label for="utest4">Life Style</label>
+    </p>
+
+
+<p>Choose one of the option depending on whether the post is self written or copied from somewhere</p>
+
+   <p>  
+      <input name="type" type="radio" id="utest11" value="Self Written"/>
+      <label for="utest11">Self Written</label>
+    </p>
+    <p>
+      <input name="type" type="radio" id="utest12" value="~Copied~"/>
+      <label for="utest12">~Copied~</label>
+    </p>
+
+   <div class="row">
+   	<div class="col s6">
+      <button id="editpost" class="btn waves-effect waves-light " type="submit" name="action">Edit Post
+    <i class="material-icons right">send</i>
+  </button>
+</div>
+<!-- the delete button-->
+<div class="col s6">
+
+<a class="waves-effect waves-light btn modal-trigger right" href="#modal1">Delete it</a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Are you sure you want to Delete this post forever ?</h4>
+    </div>
+    <div class="modal-footer">
+    	<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a onclick="deletedpost()" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+  </div>
+
+<!-- the delete button-->
+</div>
+<ul class="messageadded" style="color:blue ; padding-left:70px; font-size:25px"></ul>
+
+
+</form>
+      </div>
+  </div>    
+
+
+
+
+<footer class="page-footer" style="background-color:#ef5350;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Towards Light - Add a post</h5>
+                <p class="grey-text text-lighten-4">Learn. Share. Connect.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                    <ul>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('userhome') }}" class="white-text">
+                      <i class="material-icons">dashboard</i> Back to Dashboard.
+                      <a>
+                    </p>
+                  </li>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('viewupdateprofile') }}" class="white-text">
+                      <i class="material-icons">mode_edit</i> Edit your account info.</a>
+                    </p>
+                  </li>
+                  
+                  
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('meetpeoples') }}" class="white-text">
+                      <i class="material-icons">supervisor_account</i> Look for people you may know.</a>
+                    </p>
+                  </li>
+                  <li>
+                  <li>
+                     <p>
+
+                      <a href="{{ url_for('meetconnections') }}" class="white-text">
+                      <i class="material-icons">perm_identity</i> Connect with Friends.
+                    </a>
+                    </p>
+                  </li>
+                     <p>
+
+                      <a href="/logout" class="white-text">
+                      <i class="material-icons">power_settings_new</i> Log Out.</a>
+                    </p>
+                  </li>
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright - Towards Light | All Rights reserved
+            <a class="grey-text text-lighten right" href="#!">| Terms of Service</a> 
+            <a class="grey-text text-lighten right" href="#!">Contact Us</a>
+            </div>
+          </div>
+        </footer>
+      
+
+
+
+
+<script>
+
+function deletedpost(){
+	$.ajax({
+		url:'deletedpost/{{ postid }}',
+		type:'GET',
+		success: function(data){
+			console.log(data);
+			window.location.href='/userhome';
+		}
+	});
+}
+
+
+$('#editpost').click(function(){
+
+
+	$.ajax({
+		url:'/vieweditpage/{{ postid }}',
+		type:'POST',
+		data:$('form').serialize(),
+		success:function(data){
+			$('.messageadded').append(data.msg);
+	},
+	error: function(){
+		alert('You need to fill all entries!');
+	}
+
+
+});
+
+
+
+
+});
+
+
+</script>
+{% endblock %}

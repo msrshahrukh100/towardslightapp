@@ -27,7 +27,7 @@ app.config.update(
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
     MAIL_USERNAME='msr.concordfly@gmail.com',
-    MAIL_PASSWORD='lwkffkxtzebqdltl'
+    MAIL_PASSWORD='password'
     )
 
 

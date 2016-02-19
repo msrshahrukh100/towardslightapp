@@ -10,4 +10,5 @@ A website dedicated to sharing of thooughts and express their views.It has follo
 
 </ul>
 
-<h4>The website could be found <a href="towardlight.pythonanywhere.com">here</a></h4>
+
+<h4>The website could be found <a href="http://towardlight.pythonanywhere.com/">here</a></h4>
